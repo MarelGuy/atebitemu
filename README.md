@@ -2,6 +2,15 @@
 
 This is a MOS 6502 emulator written in rust.
 
+## Installation
+
+You can find this program on cargo, future releases may be available on the AUR or launchpad.
+
+```
+cargo install atebitemu
+```
+
+
 ## Usage
 
 **atebitemu** [OPTIONS] <PROGRAM_PATH>
@@ -19,7 +28,7 @@ This is a MOS 6502 emulator written in rust.
 
 ## Tests
 
-Tests are not included in the source code, but you can download/assemble Klaus Dormann's 6502 tests ([link](https://github.com/Klaus2m5/6502_65C02_functional_tests/tree/master)), or write your own.
+Tests are not included in the source code, but you can download/assemble [Klaus Dormann's 6502 tests](https://github.com/Klaus2m5/6502_65C02_functional_tests/tree/master), or write your own.
 
 ## License
 
