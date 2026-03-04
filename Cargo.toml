@@ -1,0 +1,13 @@
+[package]
+name = "atebitemu"
+version = "1.0.0"
+edition = "2024"
+
+[dependencies]
+clap = { version = "4.5.60", features = ["derive"] }
+
+[profile.release]
+opt-level = 3         
+lto = "fat"            
+codegen-units = 1      
+panic = "abort"     
