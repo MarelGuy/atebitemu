@@ -10,6 +10,8 @@ You can find this program on cargo, future releases may be available on the AUR 
 cargo install atebitemu
 ```
 
+if you prefer a binary, you can find it in the [releases](https://github.com/MarelGuy/atebitemu/releases) page
+
 
 ## Usage
 
