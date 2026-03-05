@@ -1,21 +1,20 @@
 pub struct Memory(pub Vec<u8>);
 
 impl Memory {
-    pub fn new(rom_data: &[u8]) -> Self {
-        let mut mem = vec![0u8; 65536];
+    pub fn new() -> Self {
+        Self(vec![0u8; 65536])
+    }
 
-        if rom_data.len() == 65536 {
-            mem.copy_from_slice(rom_data);
-        } else {
-            let length_to_copy = (0x8000 + rom_data.len()).min(0x10000) - 0x8000;
-            mem[0x8000..0x8000 + length_to_copy].copy_from_slice(&rom_data[..length_to_copy]);
+    pub fn load_at(&mut self, addr: u16, data: &[u8]) {
+        let start = addr as usize;
+        let end = (start + data.len()).min(65536);
+        let len = end - start;
 
-            if (0x8000 + rom_data.len()) <= 0xFFFC {
-                mem[0xFFFC] = 0x00;
-                mem[0xFFFD] = 0x80;
-            }
-        }
+        self.0[start..end].copy_from_slice(&data[..len]);
+    }
 
-        Self(mem)
+    pub fn write_u16(&mut self, addr: u16, val: u16) {
+        self.0[addr as usize] = (val & 0xFF) as u8;
+        self.0[(addr + 1) as usize] = (val >> 8) as u8;
     }
 }

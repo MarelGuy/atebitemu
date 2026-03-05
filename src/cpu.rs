@@ -104,9 +104,13 @@ where
             0b01 => self.zero1(aaa, bbb, cc, opcode),
             0b10 => self.one0(aaa, bbb, cc, opcode),
             _ => {
-                println!("Opcode {:08b} at PC: 0x{:04X}", opcode, self.pc - 1);
+                println!(
+                    "Warning: Opcode {:08b} at PC: 0x{:04X}",
+                    opcode,
+                    self.pc - 1
+                );
 
-                Ok(2)
+                Ok(1)
             }
         }?;
 

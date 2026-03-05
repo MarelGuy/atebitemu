@@ -38,6 +38,14 @@ struct Args {
     /// Override the starting Program Counter (PC) address (in hex)
     #[arg(short, long, value_parser = parse_hex)]
     start_pc: Option<u16>,
+
+    /// Address to load the program into (in hex)
+    #[arg(short, long, value_parser = parse_hex, default_value = "0x8000")]
+    load_addr: u16,
+
+    /// Address to set the reset vector to (defaults to `load_addr`)
+    #[arg(short, long, value_parser = parse_hex)]
+    reset_vector: Option<u16>,
 }
 
 fn run(mut cpu: Cpu<Memory>, args: &Args) -> Result<(), Box<dyn Error>> {
@@ -91,7 +99,16 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     let program = fs::read(&args.program_path)?;
 
-    let mem = memory::Memory::new(&program);
+    let mut mem = memory::Memory::new();
+
+    mem.load_at(args.load_addr, &program);
+
+    if program.len() < 65536 {
+        let boot_addr = args.reset_vector.unwrap_or(args.load_addr);
+
+        mem.write_u16(0xFFFC, boot_addr);
+    }
+
     let mut cpu = cpu::Cpu::new(mem);
 
     if let Some(pc) = args.start_pc {
