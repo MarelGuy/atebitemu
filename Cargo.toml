@@ -1,9 +1,10 @@
 [package]
 name = "atebitemu"
-version = "1.1.0"
+version = "1.1.1"
 edition = "2024"
 description = "A MOS 6502 emulator"
 license = "AGPL-3.0"
+repository = "https://github.com/MarelGuy/atebitemu"
 
 [dependencies]
 clap = { version = "4.5.60", features = ["derive"] }
